@@ -1,15 +1,3 @@
-const gallery = document.querySelector(".gallery");
-const list = document.createElement("ul");
-list.style.display = "flex";
-list.style.flexWrap = "wrap";
-list.style.gap = "20px";
-
-gallery.append(list);
-
-const body = document.querySelector("body");
-body.style.padding = "0px 156px";
-
-
 const images = [
     {
         preview:
@@ -76,12 +64,33 @@ const images = [
     },
 ];
 
-images.forEach(img => {
-    const pic = document.createElement("img");
-    pic.src = img.preview;
-    pic.style.cursor = "pointer";
-    list.append(pic);
-    pic.addEventListener("click", () => {
-        pic.src = pic.src === img.preview ? img.original : img.preview
+const a = document.querySelector("ul");
+
+images.forEach(({ preview, original, description }) => {
+    const b = document.createElement("li");
+    b.classList.add("gallery-item");
+    a.append(b);
+
+
+    const c = document.createElement("a");
+    c.href = original;
+    c.classList.add("gallery-link");
+    b.append(c);
+
+    const d = document.createElement("img");
+    d.classList.add("gallery-image");
+    d.src = preview;
+    d.setAttribute("data-source", original);
+    d.alt = description;
+
+    c.append(d);
+
+
+    d.addEventListener("click", () => {
+
+        const window = basicLightbox.create(`<img src="${original}" alt="${description}" width="800" height="600">`);
+        window.show();
     });
+
+
 });
