@@ -64,33 +64,19 @@ const images = [
     },
 ];
 
-const a = document.querySelector("ul");
 
-images.forEach(({ preview, original, description }) => {
-    const b = document.createElement("li");
-    b.classList.add("gallery-item");
-    a.append(b);
+const container = document.querySelector("ul");
 
 
-    const c = document.createElement("a");
-    c.href = original;
-    c.classList.add("gallery-link");
-    b.append(c);
+const markup = images.map((x) => `<li class ="gallery-list">  <a href= "${x.original}"> <img class="gallery-imagine" src="${x.preview}" 
+alt= "${x.description}" data-source="${x.original}"/></a> </li>`).join("");
+container.insertAdjacentHTML("beforeend", markup);
 
-    const d = document.createElement("img");
-    d.classList.add("gallery-image");
-    d.src = preview;
-    d.setAttribute("data-source", original);
-    d.alt = description;
+const mk = document.querySelector(".gallery-list");
+container.addEventListener("click", (e) => {
+    e.preventDefault();
+    const modal = basicLightbox.create(`<img src = "${e.target.src}" alt="$(e.target.alt}">`);
+    modal.show();
 
-    c.append(d);
-
-
-    d.addEventListener("click", () => {
-
-        const window = basicLightbox.create(`<img src="${original}" alt="${description}" width="800" height="600">`);
-        window.show();
-    });
-
-
-});
+}
+)
