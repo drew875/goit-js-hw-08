@@ -76,9 +76,10 @@ container.insertAdjacentHTML("beforeend", markup);
 
 
 container.addEventListener("click", (e) => {
-    if (event.target.nodeName !== 'IMG') return;
+    e.preventDefault();
+    if (e.target.nodeName !== 'IMG') return;
     const modal = basicLightbox.create(`<img src = "${e.target.dataset.source}" alt= "${e.target.alt}">`);
     modal.show();
 
 }
-)
+);
