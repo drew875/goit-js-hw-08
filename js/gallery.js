@@ -72,10 +72,12 @@ const markup = images.map((x) => `<li class ="gallery-list">  <a href= "${x.orig
 alt= "${x.description}" data-source="${x.original}"/></a> </li>`).join("");
 container.insertAdjacentHTML("beforeend", markup);
 
-const mk = document.querySelector(".gallery-list");
+
+
+
 container.addEventListener("click", (e) => {
-    e.preventDefault();
-    const modal = basicLightbox.create(`<img src = "${e.target.src}" alt="$(e.target.alt}">`);
+    if (event.target.nodeName !== 'IMG') return;
+    const modal = basicLightbox.create(`<img src = "${e.target.dataset.source}" alt= "${e.target.alt}">`);
     modal.show();
 
 }
